@@ -71,7 +71,7 @@ class PublicUserApiTests(TestCase):
         create_user(email='test@test.com', password='test12345')
         payload = {
             'email': 'test@test.com',
-            'password':"wrong12345"
+            'password': "wrong12345"
         }
         res = self.client.post(TOKEN_URL, payload)
         self.assertNotIn('token', res.data)
