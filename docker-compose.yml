@@ -18,7 +18,8 @@ services:
             - DB_USER=postgres
             - DB_PASS=postgres
         depends_on:
-            - db
+            db:
+                condition: service_healthy
 
     db:
         image: postgres:10-alpine
@@ -26,3 +27,8 @@ services:
             - POSTGRES_DB=app
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
